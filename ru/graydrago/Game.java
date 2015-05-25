@@ -52,6 +52,6 @@ public class Game {
             if (!do_loop) break;
             list.shuffle();
         }
-        System.out.println("You are great!!!\nGame Over.");
+        System.out.println("You are great!!!\nGame Over.\n");
     }
 }

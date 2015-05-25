@@ -1,5 +1,7 @@
 package ru.graydrago;
 
+import static java.lang.String.format;
+
 /**
  * Вывод символов или массивов символов на консоль с поддержкой escape последовательностей.
  **/
@@ -17,16 +19,16 @@ public class OutputCli {
 
     public static void printLetter(Letter l) {
         if (l.getStatus() == Letter.type_status.RIGHT) {
-            System.out.print("\033["+Colors.GREEN+";1m");
+            System.out.printf("\033[%s;1m", Colors.GREEN);
         } else {
-            System.out.print("\033["+Colors.RED+";1m");
+            System.out.printf("\033["+Colors.RED+";1m");
         }
         System.out.print(l.getLetter());
         System.out.print("\033[0m");
     }
 
     public static void moveCursor(int x, int y) {
-        System.out.print("\033["+y+";"+x+"H");
+        System.out.printf("\033[%d;%dH", y, x);
     }
 
     public static void reset() {
