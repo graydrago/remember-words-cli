@@ -1,4 +1,4 @@
-package ru.graydrago;
+package graydrago;
 
 import static java.lang.String.format;
 

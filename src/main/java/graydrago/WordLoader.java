@@ -1,4 +1,4 @@
-package ru.graydrago;
+package graydrago;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

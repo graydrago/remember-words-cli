@@ -1,4 +1,4 @@
-package ru.graydrago;
+package graydrago;
 
 import java.util.Collections;
 import java.util.Iterator;

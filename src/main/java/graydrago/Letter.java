@@ -1,4 +1,4 @@
-package ru.graydrago;
+package graydrago;
 
 /**
  * Буква с метаданными.
