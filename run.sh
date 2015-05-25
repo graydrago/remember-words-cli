@@ -1,2 +1,2 @@
 #! /bin/sh
-java ru.graydrago.Main $1
+java -cp ./out ru.graydrago.Main $1
