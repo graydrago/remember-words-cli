@@ -1,2 +1,2 @@
 #! /bin/sh
-java -cp ./out ru.graydrago.Main $1
+java -cp ./target/remember-words-cli-1.0-SNAPSHOT.jar graydrago.Main $1
