@@ -7,21 +7,21 @@ import static java.lang.String.format;
  **/
 public class OutputCli {
     public static interface Colors {
-        final String BLACK = "30";
-        final String RED = "31";
-        final String GREEN = "32";
-        final String YELLOW = "33";
-        final String BLUE = "34";
-        final String MAGENTA = "35";
-        final String CYAN = "36";
-        final String WHITE = "37";
+        final int BLACK = 30;
+        final int RED = 31;
+        final int GREEN = 32;
+        final int YELLOW = 33;
+        final int BLUE = 34;
+        final int MAGENTA = 35;
+        final int CYAN = 36;
+        final int WHITE = 37;
     }
 
     public static void printLetter(Letter l) {
-        if (l.getStatus() == Letter.type_status.RIGHT) {
-            System.out.printf("\033[%s;1m", Colors.GREEN);
+        if (l.getStatus() == Letter.Status.RIGHT) {
+            System.out.printf("\033[%d;1m", Colors.GREEN);
         } else {
-            System.out.printf("\033["+Colors.RED+";1m");
+            System.out.printf("\033[%d;1m", Colors.RED);
         }
         System.out.print(l.getLetter());
         System.out.print("\033[0m");
@@ -42,11 +42,11 @@ public class OutputCli {
     }
 
     public static void printTranscription(Word w) {
-        System.out.print("["+w.getTranscription()+"]");
+        System.out.printf("[%s]", w.getTranscription());
     }
 
     public static void printTranslation(Word w) {
-        System.out.print("\033[3;1m"+w.getTranslation());
+        System.out.printf("\033[3;1m%s", w.getTranslation());
         reset();
     }
 

@@ -52,7 +52,7 @@ public class Word {
             try {
                 o = original_word[i];
             } catch (ArrayIndexOutOfBoundsException e) {
-                letters[i] = new Letter(attempt_word[i], Letter.type_status.WRONG);
+                letters[i] = new Letter(attempt_word[i], Letter.Status.WRONG);
                 continue;
             }
 
@@ -60,15 +60,15 @@ public class Word {
             try {
                 a = attempt_word[i];
             } catch (ArrayIndexOutOfBoundsException e) {
-                letters[i] = new Letter('*', Letter.type_status.WRONG);
+                letters[i] = new Letter('*', Letter.Status.WRONG);
                 continue;
             }
 
             // o == a
             if (a == o) {
-                letters[i] = new Letter(a, Letter.type_status.RIGHT);
+                letters[i] = new Letter(a, Letter.Status.RIGHT);
             } else {
-                letters[i] = new Letter(a, Letter.type_status.WRONG);
+                letters[i] = new Letter(a, Letter.Status.WRONG);
             }
         }
 

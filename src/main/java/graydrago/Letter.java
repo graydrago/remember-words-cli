@@ -9,15 +9,15 @@ package graydrago;
  * Created by gray on 26.02.15.
  */
 public class Letter {
-    public enum type_status { RIGHT, WRONG }
+    public static enum Status { RIGHT, WRONG }
     char value;
-    type_status status;
+    Status status;
 
-    Letter(char value) {
-        this(value, type_status.RIGHT);
+    public Letter(char value) {
+        this(value, Status.RIGHT);
     }
 
-    Letter(char value, type_status status) {
+    public Letter(char value, Status status) {
         this.value = value;
         this.status = status;
     }
@@ -31,24 +31,30 @@ public class Letter {
         return this;
     }
 
-    public type_status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public Letter setStatus(type_status status) {
+    public Letter setStatus(Status status) {
         this.status = status;
         return this;
     }
 
+    @Override
     public String toString() {
-        return "<" + value + "|" + (status == type_status.RIGHT ? "R" : "W") + ">";
+        return String.format("<%c|%s>", value, status == Status.RIGHT ? "R" : "W");
     }
 
-    public static void main(String[] args) {
-        Letter a = new Letter('a');
-        System.out.println(a);
-        System.out.println(a.getLetter());
-        System.out.println(a.setLetter('b').getLetter());
-        System.out.println(a.setLetter('c').setStatus(type_status.WRONG));
+    /**
+     * TODO Подумать, учитывать ли статус
+     * TODO Переопределить hashCode
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        return value == ((Letter) obj).value;
     }
 }
