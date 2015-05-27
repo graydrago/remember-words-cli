@@ -10,8 +10,10 @@ import java.io.IOException;
 public class WordLoader {
     private WordLoader() {}
 
+    // TODO Добавить обработку ошибок, использовать Logger
     public static WordList fromFile(String filename) throws IOException {
         WordList list = new WordList();
+        // TODO Ошибка загрузки файла
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
         while ((line = reader.readLine()) != null) {

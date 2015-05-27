@@ -1,6 +1,7 @@
 package graydrago;
 
 import static java.lang.String.format;
+import static java.lang.System.out;
 
 /**
  * Вывод символов или массивов символов на консоль с поддержкой escape последовательностей.
@@ -19,20 +20,20 @@ public class OutputCli {
 
     public static void printLetter(Letter l) {
         if (l.getStatus() == Letter.Status.RIGHT) {
-            System.out.printf("\033[%d;1m", Colors.GREEN);
+            out.printf("\033[%d;1m", Colors.GREEN);
         } else {
-            System.out.printf("\033[%d;1m", Colors.RED);
+            out.printf("\033[%d;1m", Colors.RED);
         }
-        System.out.print(l.getLetter());
-        System.out.print("\033[0m");
+        out.print(l.getLetter());
+        out.print("\033[0m");
     }
 
     public static void moveCursor(int x, int y) {
-        System.out.printf("\033[%d;%dH", y, x);
+        out.printf("\033[%d;%dH", y, x);
     }
 
     public static void reset() {
-        System.out.print("\033[0m");
+        out.print("\033[0m");
     }
 
     public static void printLetters(Letter[] letters) {
@@ -42,16 +43,16 @@ public class OutputCli {
     }
 
     public static void printTranscription(Word w) {
-        System.out.printf("[%s]", w.getTranscription());
+        out.printf("[%s]", w.getTranscription());
     }
 
     public static void printTranslation(Word w) {
-        System.out.printf("\033[3;1m%s", w.getTranslation());
+        out.printf("\033[3;1m%s", w.getTranslation());
         reset();
     }
 
     public static void clearScreen() {
-        System.out.print("\33[2J");
+        out.print("\33[2J");
     }
 
     protected void finalize() throws Throwable {
@@ -65,6 +66,6 @@ public class OutputCli {
         OutputCli.printLetters(letters);
         OutputCli.printTranscription(new_word);
         OutputCli.printTranslation(new_word);
-        System.out.println();
+        out.println();
     }
 }
