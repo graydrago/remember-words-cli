@@ -5,8 +5,6 @@ package graydrago;
  *
  * Буква имеет состояние отражающее верно она была набрана или нет.
  * Логика отвечающая за изменение состояния должна распологаться в вызывающем коде.
- *
- * Created by gray on 26.02.15.
  */
 public class Letter {
     public static enum Status { RIGHT, WRONG }

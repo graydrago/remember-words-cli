@@ -2,8 +2,6 @@ package graydrago;
 
 /**
  * Слово или выражение.
- *
- * Created by gray on 26.02.15.
  */
 public class Word {
     private String word;
@@ -38,7 +36,12 @@ public class Word {
         return s.equals(word);
     }
 
-    public Letter[] differents(String s) {
+    /**
+     * TODO Переписать, exceptions тут неуместны
+     * @param s
+     * @return 
+     */
+    public Letter[] getDifferences(String s) {
 
         int length = s.length() > word.length() ? s.length() : word.length();
         char[] original_word = word.toCharArray();
@@ -77,7 +80,7 @@ public class Word {
 
     public static void main(String[] args) {
         Word w = new Word("hello", "hello", "привет", "hello, world");
-        for ( Letter l : w.differents("heldod")) {
+        for ( Letter l : w.getDifferences("heldod")) {
             System.out.println(l);
         }
     }

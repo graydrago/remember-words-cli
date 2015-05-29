@@ -1,57 +1,83 @@
 package graydrago;
 
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import graydrago.OutputCli;
+
 /**
- * Created by gray on 24.03.15.
+ * Основной класс запускающий весь процесс.
  */
 public class Game {
-    WordList list;
+    private final String COMMAND_HINT = "\\?";
+    private final String COMMAND_LONG_HINT = "\\hint";
+    
+    private final String COMMAND_EXIT = "\\e";
+    private final String COMMAND_LONG_EXIT = "\\exit";
+    
+    private WordList list;
+    private ResourceBundle bundle;
+    
+    private Scanner scanner = null;
 
-    public Game(WordList list) {
+    /**
+     * Конструктор
+     * 
+     * @param list Список слов.
+     * @param bundle Ресурсы с локализацией текста. 
+     */
+    public Game(WordList list, ResourceBundle bundle) {
         this.list = list;
+        this.bundle = bundle;
     }
 
-    static String getUserInput() {
-        Scanner scanner = new Scanner(System.in);
+    public String getUserInput() {
+        if (scanner == null) {
+            scanner = new Scanner(System.in);
+        }
         return scanner.nextLine();
     }
 
     public void run() {
-        boolean do_loop = true;
+        boolean do_main_loop = true;
         String input;
-
+        
+        list.shuffle();
         for (Word word : list) {
-            System.out.println("Осталось: " + list.size());
-            System.out.println();
+            
+            OutputCli.printf("%s: %d\n", bundle.getString("the_number_of_words"), list.size());
 
             while (true) {
-                System.out.println(word.getTranslation());
+                OutputCli.println(word.getTranslation());
                 input = getUserInput();
 
-                if (input.equals("?")) {
+                if (input.equals(COMMAND_HINT) || input.equals(COMMAND_LONG_HINT)) {
                     list.add(word);
-                    System.out.println("The prompt: " + word.getWord());
+                    OutputCli.printf("%s: %s", bundle.getString("hint"), word.getWord());
                     continue;
                 }
 
-                if (input.equals("\\e") || input.equals("\\exit")) {
-                    do_loop = false;
+                if (input.equals(COMMAND_EXIT) || input.equals(COMMAND_LONG_EXIT)) {
+                    do_main_loop = false;
                     break;
                 }
 
-                OutputCli.printLetters(word.differents(input));
-                System.out.print(" [" + word.getTranscription() + "]");
-                System.out.println();
+                OutputCli.printLetters(word.getDifferences(input));
+                OutputCli.printf(" [%s]\n", word.getTranscription());
                 if (word.compare(input)) {
                     break;
                 } else {
                     list.add(word);
                 }
             }
-            if (!do_loop) break;
             list.shuffle();
+            if (!do_main_loop) break;
         }
-        System.out.println("You are great!!!\nGame Over.\n");
+            
+        if (list.size() == 0) {
+            OutputCli.println(bundle.getString("congratulation"));
+        } else {
+            OutputCli.println(bundle.getString("bye"));
+        }
     }
 }

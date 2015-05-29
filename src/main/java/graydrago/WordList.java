@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * Класс помогает создать итератор слов.
+ * Итератор по списку слов.
  */
 public class WordList implements Iterable<Word> {
     private LinkedList<Word> queue;
