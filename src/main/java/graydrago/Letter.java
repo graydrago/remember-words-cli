@@ -8,6 +8,7 @@ package graydrago;
  */
 public class Letter {
     public static enum Status { RIGHT, WRONG }
+    
     char value;
     Status status;
 
@@ -43,12 +44,6 @@ public class Letter {
         return String.format("<%c|%s>", value, status == Status.RIGHT ? "R" : "W");
     }
 
-    /**
-     * TODO Подумать, учитывать ли статус
-     * TODO Переопределить hashCode
-     * @param obj
-     * @return 
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

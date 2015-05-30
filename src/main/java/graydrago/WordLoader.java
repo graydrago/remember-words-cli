@@ -1,23 +1,36 @@
 package graydrago;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Загрузка слов из файла в список.
  */
 public class WordLoader {
+    /**
+     * Экземпляров этого класса создавать не нужно.
+     */
     private WordLoader() {}
+    
+    private static final Logger log = Logger.getLogger(WordLoader.class.getName());
 
-    // TODO Добавить обработку ошибок, использовать Logger
-    public static WordList fromFile(String filename) throws IOException {
+    /**
+     * Загружает список слов из файла.
+     * 
+     * @param filename Имя файла со списком слов.
+     * @return Возвращает список слов.
+     */
+    public static WordList fromFile(String filename) {
         WordList list = new WordList();
-        // TODO Ошибка загрузки файла
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            try {
+
+        String line = "";
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
 
                 for (int i = 0; i < parts.length; i++) {
@@ -26,19 +39,18 @@ public class WordLoader {
 
                 Word word = new Word(parts[0], parts[1], parts[2], "");
                 list.add(word);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Ошибка при импорте строки: " + line);
-                System.exit(1);
             }
-
+        } catch(ArrayIndexOutOfBoundsException e) {
+            log.log(Level.SEVERE, "Import error on line: {0}", line);
+            System.exit(1);
+        } catch (FileNotFoundException e) {
+            log.log(Level.SEVERE, "File not found: {0}", filename);
+            System.exit(1);
+        } catch (IOException e) {
+            log.log(Level.SEVERE, "Error reading from file: {0}", filename);
+            System.exit(1);
         }
+        
         return list;
-    }
-
-    public static void main(String[] args) throws IOException {
-        WordList list = WordLoader.fromFile("/home/gray/tmp/words");
-        for (Word word : list) {
-            System.out.println(word.getWord());
-        }
     }
 }

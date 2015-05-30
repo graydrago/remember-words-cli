@@ -1,8 +1,6 @@
 package graydrago;
 
-import static java.lang.String.format;
 import static java.lang.System.out;
-import sun.org.mozilla.javascript.ScriptRuntime;
 
 /**
  * Вывод на консоль с поддержкой escape последовательностей.

@@ -3,20 +3,21 @@ package graydrago;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import graydrago.OutputCli;
-
 /**
  * Основной класс запускающий весь процесс.
  */
-public class Game {
-    private final String COMMAND_HINT = "\\?";
-    private final String COMMAND_LONG_HINT = "\\hint";
+public class Application {
+    private final static String COMMAND_HINT = "?";
+    private final static String COMMAND_LONG_HINT = "\\hint";
     
-    private final String COMMAND_EXIT = "\\e";
-    private final String COMMAND_LONG_EXIT = "\\exit";
+    private final static String COMMAND_EXIT = "\\e";
+    private final static String COMMAND_LONG_EXIT = "\\exit";
+    
+    private final static String COMMAND_HELP = "\\h";
+    private final static String COMMAND_LONG_HELP = "\\help";
     
     private WordList list;
-    private ResourceBundle bundle;
+    private final ResourceBundle bundle;
     
     private Scanner scanner = null;
 
@@ -24,9 +25,9 @@ public class Game {
      * Конструктор
      * 
      * @param list Список слов.
-     * @param bundle Ресурсы с локализацией текста. 
+     * @param bundle Ресурсы с локализацией текста.
      */
-    public Game(WordList list, ResourceBundle bundle) {
+    public Application(WordList list, ResourceBundle bundle) {
         this.list = list;
         this.bundle = bundle;
     }
@@ -37,6 +38,13 @@ public class Game {
         }
         return scanner.nextLine();
     }
+    
+    public void printHelp() {
+        OutputCli.println(bundle.getString("help_text"));
+        OutputCli.printf("%s - %s\n", COMMAND_HINT, bundle.getString("help_hint"));
+        OutputCli.printf("%s - %s\n", COMMAND_EXIT, bundle.getString("help_exit"));
+        OutputCli.printf("%s - %s\n", COMMAND_HELP, bundle.getString("help_help"));
+    }
 
     public void run() {
         boolean do_main_loop = true;
@@ -46,14 +54,19 @@ public class Game {
         for (Word word : list) {
             
             OutputCli.printf("%s: %d\n", bundle.getString("the_number_of_words"), list.size());
-
+            
             while (true) {
                 OutputCli.println(word.getTranslation());
                 input = getUserInput();
 
                 if (input.equals(COMMAND_HINT) || input.equals(COMMAND_LONG_HINT)) {
                     list.add(word);
-                    OutputCli.printf("%s: %s", bundle.getString("hint"), word.getWord());
+                    OutputCli.printf("%s: %s\n", bundle.getString("hint"), word.getWord());
+                    continue;
+                }
+                
+                if (input.equals(COMMAND_HELP) || input.equals(COMMAND_LONG_HELP)) {
+                    printHelp();
                     continue;
                 }
 
