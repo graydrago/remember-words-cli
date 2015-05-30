@@ -61,7 +61,10 @@ public class Application {
 
                 if (input.equals(COMMAND_HINT) || input.equals(COMMAND_LONG_HINT)) {
                     list.add(word);
-                    OutputCli.printf("%s: %s\n", bundle.getString("hint"), word.getWord());
+                    OutputCli.printf("%s: %s [%s]\n", 
+                                     bundle.getString("hint"),
+                                     word.getWord(),
+                                     word.getTranscription());
                     continue;
                 }
                 
