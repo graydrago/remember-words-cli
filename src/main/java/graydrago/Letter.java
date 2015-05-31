@@ -45,9 +45,21 @@ public class Letter {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        return value == ((Letter) obj).value;
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        
+        Letter obj = (Letter) otherObject;
+        if (obj.getClass() != Letter.class) return false;
+        
+        return value == obj.value &&
+               status.equals(obj.status);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 11 * hash + this.value;
+        return hash;
     }
 }
