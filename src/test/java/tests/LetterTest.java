@@ -5,10 +5,6 @@ import static org.junit.Assert.*;
 
 import graydrago.Letter;
 
-/**
- *
- * @author gray
- */
 public class LetterTest {
     @Test
     public void equals() {
